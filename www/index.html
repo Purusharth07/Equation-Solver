@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+	body{
+		background-image: url(backimages.jpg);
+		background-size: cover;
+		background-repeat: no-repeat;
+	}	
+</style>
+<SCRIPT LANGUAGE="JavaScript">
+function linear(){
+	var val1 = document.getElementById("equation2").value.toLowerCase();
+	var pattern1 = /([+-]?\d+)[Xx]\s*([+-]?\d+)\s*=\s*0/;
+	if(pattern1.test(val1) == true)
+  {
+    var coefficients = val1.split(/([+-]?\d+)[Xx]\s*([+-]?\d+)\s*=\s*0/ );
+  	 a2 = coefficients[1];
+  	 c2 = coefficients[2];
+  	 form2.a2.value = a2;
+  	 form2.c2.value = c2;
+  	 x=-c2/a2;
+  	 form2.x.value = x;
+  	 if (form2.x.value == "NaN") form2.xx.value="Imag.!";
+}
+}
+
+function quad(form) {
+var val = document.getElementById("equation").value.toLowerCase();
+var pattern = /([+-]?\d+)[Xx]2\s*([+-]?\d+)[Xx]\s*([+-]?\d+)\s*=\s*0/;
+if(pattern.test(val) == true)
+  {
+    var coefficients = val.split(/([+-]?\d+)[Xx]2\s*([+-]?\d+)[Xx]\s*([+-]?\d+)\s*=\s*0/ );
+  	 a = coefficients[1];
+  	 b = coefficients[2];
+  	 c = coefficients[3];
+  	form.a.value = a;
+  	form.b.value = b;
+  	form.c.value = c;
+    x1=-b/2/a+Math.pow(Math.pow(b,2)-4*a*c,0.5)/2/a;
+	x2=-b/2/a-Math.pow(Math.pow(b,2)-4*a*c,0.5)/2/a;
+	form.x1.value = x1;
+	form.x2.value = x2;
+	if (form.x1.value == "NaN") form.x1.value="Imag.!";
+	if (form.x2.value == "NaN") form.x2.value="Imag.!";
+	var discr = (b * b) - 4 * (a * c);
+	var sqrDiscr = Math.sqrt(discr);
+	if (discr < 0){
+		document.getElementById("nature").value = "the roots are unequal and imaginary";
+	}
+	else if (discr == 0){
+		document.getElementById("nature").value = "the roots are real and equal";
+	}
+	else if (discr > 0){
+		document.getElementById("nature").value = "the roots are real and unequal";
+	}
+ }
+    myDiv = document.getElementById("display");
+    Equation();
+    Step_wise_Working();
+}
+function clean(){
+	document.getElementById("equation").value = null;
+	document.getElementById("nature").value = null;
+	document.getElementById("x1").value = null;
+	document.getElementById("x2").value = null;
+	document.getElementById("a").value = null;
+	document.getElementById("a").value = null;
+	document.getElementById("b").value = null;
+	document.getElementById("c").value = null;
+	document.getElementById("display").innerHTML= "";
+}
+function clean2(){
+	document.getElementById("equation2").value = null;
+	document.getElementById("x").value = null;
+	document.getElementById("a2").value = null;
+	document.getElementById("c2").value = null;
+}
+function Equation() {
+            eqnStr = (a == 1 ? "" : a) + "x\u00B2 + " + (b == 1 ? "" : b) + "x + " + c + " = 0";
+            myDiv.innerHTML = "<p>Given the equation <strong>" + eqnStr + "</strong>, we can solve for x by completing the square.</p>";
+        }
+        
+function Step_wise_Working() {
+
+    b = b / a;
+    c = c / a;
+    myDiv.innerHTML = myDiv.innerHTML + "<h4>Step 1 - divide the equation by <em>a</em> (if <em>a</em> doesn't equal 1)</h4><p>" + eqnStr + (a == 1 ? "" : "<br>" + "x\u00B2 + " + (b == 1 ? "" : b) + "x + " + c + " = 0") + "</p>";
+            
+    var halfb = b / 2;
+    var halfbSqr = halfb * halfb;
+    myDiv.innerHTML = myDiv.innerHTML + "<h4>Step 2 - add the square of half of <em>b</em> to both sides</h4><p>x\u00B2 + " + (b == 1 ? "" : b) + "x + ("+ halfb + ")\u00B2 + " + c + " = (" + halfb + ")\u00B2<br>x\u00B2 + " + (b == 1 ? "" : b) + "x + "+ halfbSqr + " + " + c + " = " + halfbSqr + "</p>";
+
+    myDiv.innerHTML = myDiv.innerHTML + "<h4>Step 3 - convert to the square form</h4><p>(x\u00B2 + " + (b == 1 ? "" : b) + "x + " + halfbSqr + ") + " + c + " = " + halfbSqr + "<br>(x + " + halfb + ")\u00B2 + " + c + " = " + halfbSqr + "</p>";
+            
+    var rhs = halfbSqr - c;
+    var sqrtRhs = Math.sqrt(rhs);
+    myDiv.innerHTML = myDiv.innerHTML + "<h4>Step 4 - solve for <em>x</em></h4><p>(x + " + halfb + ")\u00B2 + " + c + " = " + halfbSqr + "<br>(x + " + halfb + ")\u00B2 = " + rhs + "<br>x + " + halfb + " = \u00B1" + sqrtRhs + "<br>x = " + (-sqrtRhs - halfb) + " or " + (sqrtRhs - halfb) + "</p>";
+}
+
+</SCRIPT>
+
+
+</head>
+<body>
+<h1 style="text-align: center; color:#ffffff; text-decoration: underline; "><i>Let's have some fun with</i> <span style="font-weight: bold;">Equations</span></h1>
+<center>
+<form name=form2>
+<table border=1 cellpadding=2>
+<tr>
+<td colspan=2 align=center><b><span style="color:#ffffff">Enter Linear Equation Below:(Ax + C = 0)</b></span></br><input type="text" name="equation2" id="equation2" size="10"></td>
+</tr>
+<tr>
+<td>
+<center><table border=1 width=100% cellpadding=2>
+<tr>
+<td align=center><b><span style="color:#ffffff">A = </span></b></td>
+<td align=center><input type=text size=6 name="a2" id="a2"></td>
+</tr>
+<tr>
+<td align=center><b><span style="color: 	#ffffff">C = </span></b></td>
+<td align=center><input type=text size=6 name="c2" id="c2"></td>
+</tr>
+</table>
+</td>
+<td>
+<center><table border=1 width=100% cellpadding=2>
+<tr>
+<td colspan=2 align=center>
+<input type=button value="Find Value" onClick="linear(this.form)"></td>
+</tr>
+<tr>
+<td align=center><b><span style="color: 	#ffffff">X = </span></b></td>
+<td align=center><input type=text size=6 name="x" id="x"></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan=2 align=center>
+<input type=button value="Clear Entries" onClick="clean2(this.form)"></td>
+</tr>
+</table>
+</form>
+</center>
+<br><br>
+<center>
+<form name=form>
+<table border=1 cellpadding=2>
+<tr>
+<td colspan=2 align=center><b><span style="color:#ffffff">Enter Quadratic Equation:(Ax<sup>2</sup> + Bx + C = 0)</b></span></br><input type="text" name="equation" id="equation" size="10"></td>
+</tr>
+<tr>
+<td>
+<center><table border=1 width=100% cellpadding=2>
+<tr>
+<td align=center><b><span style="color:#ffffff">A = </span></b></td>
+<td align=center><input type=text size=6 name="a" id="a"></td>
+</tr>
+<tr>
+<td align=center><b><span style="color: 	#ffffff">B = </span></b></td>
+<td align=center><input type=text size=6 name="b" id="b"></td>
+</tr>
+<tr>
+<td align=center><b><span style="color: 	#ffffff">C = </span></b></td>
+<td align=center><input type=text size=6 name="c" id="c"></td>
+</tr>
+</table>
+</td>
+<td>
+<center><table border=1 width=100% cellpadding=2>
+<tr>
+<td colspan=2 align=center>
+<input type=button value="Find Roots" onClick="quad(this.form)"></td>
+</tr>
+<tr>
+<td align=center><b><span style="color: 	#ffffff">X1 = </span></b></td>
+<td align=center><input type=text size=6 name="x1" id="x1"></td>
+</tr>
+<tr>
+<td align=center><b><span style="color: 	#ffffff">X2 = </span></b></td>
+<td align=center><input type=text size=6 name="x2" id="x2"></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan=2 align=center><b><span style="color: 	#ffffff">Nature Of Roots:(b<sup>2</sup> - 4*a*c)</span></b></br><input type="text" name="nature" id="nature" size="40"></td>
+</tr>
+<tr>
+<td colspan=2 align=center>
+<input type=button value="Clear Entries" onClick="clean(this.form)"></td>
+</tr>
+</table>
+</form>
+</center>
+<center>
+	<div style="color: white;" id="display"/>
+</center>
+</body>
+</html>
